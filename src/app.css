@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	:root {
+		@apply bg-white-var;
+	}
+}
+
+@layer utilities {
+	.main-container {
+		@apply container mx-auto w-[calc(100%-44px)] xl:max-w-[900px] 2xl:max-w-screen-lg;
+	}
+}
+
+:root {
+	font-family: 'Poppins', sans-serif;
+
+	--text-color: var(--colors-black);
+	--font-weight: 400;
+}

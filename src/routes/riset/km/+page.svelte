@@ -1,0 +1,27 @@
+<script context="module">
+	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
+	import { itemRisetKm } from '$lib/store';
+
+	import { getRisetKmData } from '$lib/_api';
+	import { updateStateTypeRiset } from '$lib/utils/risetUtils';
+
+	import OrgHeroBannerRiset from '$lib/components/organism/riset/OrgHeroBannerRiset.svelte';
+	import OrgListRiset from '$lib/components/organism/riset/OrgListRiset.svelte';
+</script>
+
+<script>
+	updateStateTypeRiset($page.routeId?.toString().split('/').pop());
+
+	onMount(async () => {
+		getRisetKmData().then((res) => itemRisetKm.set(res.data.results));
+	});
+</script>
+
+<svelte:head>
+	<title>Riset | GO DATA</title>
+	<meta name="description" content="Data Riset GO Data Risbang BEM KM IPB" />
+</svelte:head>
+
+<OrgHeroBannerRiset />
+<OrgListRiset {itemRisetKm} />
