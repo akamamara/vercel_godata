@@ -1,9 +1,16 @@
+import { BASE_URL_API } from '$lib/env';
 import {get } from 'svelte/store';
 import { itemRisetGoData } from './store';
 import { limitGoData, loadMoreVisibility, pageGoData } from './store/risetStore';
 
-const baseUrl =
-    import.meta.env.VITE_BASE_API;
+let baseUrl = '';
+if (process.env.NODE_ENV === 'production') {
+    // For production
+    baseUrl = process.env.BASE_URL_API;
+} else {
+    // For development
+    baseUrl = BASE_URL_API;
+}
 
 // TODO: Add fallback when message not success
 
