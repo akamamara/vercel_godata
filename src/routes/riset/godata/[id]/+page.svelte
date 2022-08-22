@@ -21,7 +21,6 @@
 	onMount(async () => {
 		getRisetGodataById($page.params.id).then((res) => {
 			dataRiset = res.data;
-			console.log('dataRiset', dataRiset);
 		});
 	});
 </script>

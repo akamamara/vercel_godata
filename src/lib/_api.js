@@ -1,16 +1,8 @@
-import { BASE_URL_API } from '$lib/env';
 import {get } from 'svelte/store';
 import { itemRisetGoData } from './store';
 import { limitGoData, loadMoreVisibility, pageGoData } from './store/risetStore';
 
-let baseUrl = '';
-if (process.env.NODE_ENV === 'production') {
-    // For production
-    baseUrl = process.env.BASE_URL_API;
-} else {
-    // For development
-    baseUrl = BASE_URL_API;
-}
+let baseUrl = 'https://web-godata-admin-git-development-codepanda.vercel.app/api';
 
 // TODO: Add fallback when message not success
 
@@ -55,7 +47,6 @@ export async function loadMoreRisetGoData() {
     pageGoData.update((n) => n + 1);
     getRisetGoData(get(pageGoData)).then((res) => {
         let result = res.data.results;
-        console.log('newData:', result);
         if (result.length < get(limitGoData)) loadMoreVisibility.set(false);
         itemRisetGoData.set([...get(itemRisetGoData), ...result]);
     });

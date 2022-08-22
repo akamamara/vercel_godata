@@ -21,7 +21,6 @@
 	let Viewport;
 	let wLogoGo;
 	$: wLogoGo = 9;
-	$: console.log('wLogoGo', wLogoGo);
 
 	let moduleViewport;
 	onMount(async () => {
