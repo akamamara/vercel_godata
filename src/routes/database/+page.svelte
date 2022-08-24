@@ -59,8 +59,6 @@
 				ukm: ukm,
 				ruangan: room
 			});
-
-			console.log(get(itemDataDatabase));
 		});
 	});
 </script>

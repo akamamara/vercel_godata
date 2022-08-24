@@ -30,8 +30,6 @@
 			Carousel = module.default;
 		});
 	});
-
-	$: console.log(item);
 </script>
 
 <svelte:window />

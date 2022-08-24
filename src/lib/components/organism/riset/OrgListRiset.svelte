@@ -19,8 +19,6 @@
 </script>
 
 <script>
-	$: console.log('Godata:', get(stateGoData), 'Km:', get(stateKm));
-
 	const listDropDownRisetKM = [
 		'Jakda',
 		'Jagrikom',

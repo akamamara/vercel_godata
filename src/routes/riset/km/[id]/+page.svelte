@@ -4,9 +4,9 @@
 	import { page } from '$app/stores';
 
 	import OrgDetailRiset from '$lib/components/organism/riset/OrgDetailRiset.svelte';
-	
-  import { getRisetKmById } from '$lib/_api';
-  import { itemRisetKm } from '$lib/store';
+
+	import { getRisetKmById } from '$lib/_api';
+	import { itemRisetKm } from '$lib/store';
 </script>
 
 <script>
@@ -15,7 +15,6 @@
 
 	onMount(async () => {
 		getRisetKmById($page.params.id).then((res) => {
-			console.log('dataRiset', res.data);
 			dataRiset = res.data;
 		});
 	});

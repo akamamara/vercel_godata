@@ -41,7 +41,6 @@
 		if (get(stateKm)) {
 			pageKm.set(1);
 			getRisetKmData($pageKm, item === 'Lainnya' ? '' : item).then((res) => {
-				console.log(res.data.results);
 				itemRisetKm.set(res.data.results);
 			});
 		}

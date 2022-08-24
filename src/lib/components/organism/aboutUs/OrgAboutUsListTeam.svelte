@@ -19,9 +19,6 @@
 		data = data.filter((dataItem) => dataItem.division != item.division);
 	});
 
-	$: console.log(divisionList);
-	$: console.log(data);
-
 	const testData = [
 		{
 			name: 'Fajar Himawan',
