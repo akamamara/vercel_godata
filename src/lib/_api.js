@@ -3,8 +3,8 @@ import { itemRisetGoData } from './store';
 import { limitGoData, loadingLoadMore, loadMoreVisibility, pageGoData } from './store/risetStore';
 
 // const baseUrl = import.meta.env.VITE_BASE_API;
-// const baseUrl = 'https://web-godata-admin-git-development-codepanda.vercel.app/api';
-const baseUrl = 'http://localhost:3000/api';
+const baseUrl = 'https://web-godata-admin-git-development-codepanda.vercel.app/api';
+// const baseUrl = 'http://localhost:3000/api';
 
 async function fetchApi(endpoint = '', method = 'GET') {
     return await fetch(baseUrl + endpoint, {
