@@ -1,7 +1,7 @@
 <script context="module">
 	import { ChevronRightIcon } from 'svelte-feather-icons';
 
-	import { stateGoData, stateKm } from '$lib/store';
+	import { formData, stateGoData, stateKm } from '$lib/store';
 
 	import AtomButton from '$lib/components/atom/button/AtomButton.svelte';
 	import AtomTextBody from '$lib/components/atom/typography/AtomTextBody.svelte';
@@ -13,11 +13,14 @@
 
 	import { get } from 'svelte/store';
 	import { itemRisetGoData, itemRisetKm } from '$lib/store';
-	import { loadMoreVisibility } from '$lib/store/risetStore';
+	import { maxPageKm, pageKm, loadingLoadMore, loadMoreVisibility } from '$lib/store/risetStore';
 	import { loadMoreRisetGoData } from '$lib/_api';
+	import { onClickRefer } from '$lib/utils/buttonUtils';
 </script>
 
 <script>
+	$: console.log('Godata:', get(stateGoData), 'Km:', get(stateKm));
+
 	const listDropDownRisetKM = [
 		'Jakda',
 		'Jagrikom',
@@ -44,7 +47,12 @@
 				<div class="godata-header">
 					<AtomTextHeading element="h2" _class="text-white">Riset GODATA</AtomTextHeading>
 					<div class="grow" />
-					<MoleculeDropDown>
+					<MoleculeDropDown
+						listDropDownRisetGodata={Array.from(
+							{ length: new Date().getYear() - 99 },
+							(v = 2000, i) => v + i
+						).reverse()}
+					>
 						<AtomTextBody slot="title">Tahun</AtomTextBody>
 					</MoleculeDropDown>
 				</div>
@@ -73,9 +81,17 @@
 				</div>
 				{#if $loadMoreVisibility}
 					<div class="mt-8 w-fit mx-auto">
-						<AtomButton on:click={() => loadMoreRisetGoData()} size="small">
-							Muat lebih banyak
-						</AtomButton>
+						{#if !$loadingLoadMore}
+							<AtomButton
+								on:click={async () => {
+									loadingLoadMore.set(true);
+									loadMoreRisetGoData();
+								}}
+								size="small"
+							>
+								Muat lebih banyak
+							</AtomButton>
+						{/if}
 					</div>
 				{/if}
 			</div>
@@ -96,17 +112,23 @@
 					lakukan!
 				</AtomTextBody>
 				<div class="riset-km-action">
-					<AtomButton icon={ChevronRightIcon} _class="sm:col-start-1 sm:col-end-4"
-						>Bagikan Risetmu!</AtomButton
+					<AtomButton
+						icon={ChevronRightIcon}
+						_class="sm:col-start-1 sm:col-end-4"
+						on:click={() => onClickRefer($formData.research)}
 					>
-					<MoleculeDropDown listDropDown={listDropDownRisetKM} _class="sm:col-end-7">
+						Bagikan Risetmu!
+					</AtomButton>
+					<MoleculeDropDown {listDropDownRisetKM} _class="sm:col-end-7">
 						<AtomTextBody slot="title">Kementerian</AtomTextBody>
 					</MoleculeDropDown>
 				</div>
 				<MoleculeListsRisetKm data={$itemRisetKm} />
-				<div class="w-full">
-					<MoleculePagination />
-				</div>
+				{#if $maxPageKm !== $pageKm}
+					<div class="w-full">
+						<MoleculePagination maxNumber={$maxPageKm} counter={$pageKm} />
+					</div>
+				{/if}
 			</div>
 		{/if}
 	</div>

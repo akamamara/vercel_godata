@@ -18,6 +18,9 @@
 			loading = false;
 		});
 	});
+
+	$: console.log($aboutDescData);
+	$: console.log($aboutPersonData);
 </script>
 
 <svelte:head>

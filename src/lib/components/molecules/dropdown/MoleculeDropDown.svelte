@@ -1,50 +1,98 @@
+<script context="module">
+	import { browser } from '$app/env';
+	import { page } from '$app/stores';
+
+	import AtomButton from '$lib/components/atom/button/AtomButton.svelte';
+	import AtomTextBody from '$lib/components/atom/typography/AtomTextBody.svelte';
+	import { itemRisetGoData, itemRisetKm, stateGoData } from '$lib/store';
+	import { pageGoData, pageKm } from '$lib/store/risetStore';
+	import { getRisetGoData, getRisetKmData } from '$lib/_api';
+	import { ChevronDownIcon } from 'svelte-feather-icons';
+	import { stateKm } from '$lib/store';
+	import { get } from 'svelte/store';
+</script>
+
 <script>
-  import AtomButton from "$lib/components/atom/button/AtomButton.svelte";
-import AtomTextBody from "$lib/components/atom/typography/AtomTextBody.svelte";
-  import { ChevronDownIcon, ChevronsDownIcon } from "svelte-feather-icons";
+	export let _class = '';
+	export let listDropDownRisetGodata = [];
+	export let listDropDownRisetKM = [];
 
-  export let _class = "";
-  export let listDropDown = ["2021", "2020", "2019", "2018"];
-  
-  let btnClicked = false;
+	let btnClicked = false;
 
-  let currentSelection = ""
-  $: currentSelection = listDropDown[0]
+	let currentSelection = '';
+	$: if (listDropDownRisetGodata.length || listDropDownRisetKM.length)
+		currentSelection = get(stateGoData) ? listDropDownRisetGodata[0] : listDropDownRisetKM[0];
 
-  const handleDropDownClick = () => {
-    btnClicked = !btnClicked
-  }
+	const handleDropDownClick = () => {
+		btnClicked = !btnClicked;
+	};
 
-  const handleItemClick = (item) => {
-    currentSelection = item;
-    handleDropDownClick();
-  }
+	const handleItemClick = async (item) => {
+		currentSelection = item;
+		handleDropDownClick();
 
+		if (browser)
+			if (get(stateGoData)) {
+				pageGoData.set(1);
+				getRisetGoData($pageGoData, parseInt(item)).then((res) =>
+					itemRisetGoData.set(res.data.results)
+				);
+			}
+		if (get(stateKm)) {
+			pageKm.set(1);
+			getRisetKmData($pageKm, item === 'Lainnya' ? '' : item).then((res) => {
+				console.log(res.data.results);
+				itemRisetKm.set(res.data.results);
+			});
+		}
+	};
 </script>
 
 <div class="base-dropdown {_class}">
-  <slot name="title" />
-  <div class="grow mx-2" />
-  <AtomButton on:click={handleDropDownClick} icon={ChevronDownIcon} size="small" iconSize="16" _class="float-right">{currentSelection}</AtomButton>
-  <div class="dropdown">
-    <div class:hidden={btnClicked == false} class:block={btnClicked == true}>
-      {#each listDropDown as item}
-      <div class="dropdown-item" on:click={handleItemClick(item)}>
-        <AtomTextBody size="small" element="span" _class="cursor-pointer">{item}</AtomTextBody>
-      </div>
-    {/each}
-  </div>
-</div>
+	<slot name="title" />
+	<div class="grow mx-2" />
+	<AtomButton
+		on:click={handleDropDownClick}
+		icon={ChevronDownIcon}
+		size="small"
+		iconSize="16"
+		_class="float-right">{currentSelection}</AtomButton
+	>
+	<div
+		class:hidden={btnClicked == false}
+		class:dropdown={btnClicked == true && $stateGoData}
+		class:dropdownKm={btnClicked == true && $stateKm}
+	>
+		{#if $stateKm}
+			{#each listDropDownRisetKM as item}
+				<div class="dropdown-item" on:click={async () => await handleItemClick(item)}>
+					<AtomTextBody size="small" element="span" _class="cursor-pointer">{item}</AtomTextBody>
+				</div>
+			{/each}
+		{:else}
+			{#each listDropDownRisetGodata as item}
+				<div class="dropdown-item" on:click={async () => await handleItemClick(item)}>
+					<AtomTextBody size="small" element="span" _class="cursor-pointer">{item}</AtomTextBody>
+				</div>
+			{/each}
+		{/if}
+	</div>
 </div>
 
 <style>
-  .base-dropdown {
-    @apply relative border border-white p-1 pl-4 rounded-full flex items-center h-fit min-w-fit
-  }
-  .dropdown {
-    @apply absolute top-12 right-1 grid grid-cols-1 divide-y min-w-fit max-w-[80%] min-w-[8rem] max-h-[16rem] overflow-y-auto	bg-white text-black text-center rounded-lg drop-shadow-lg
-  }
-  .dropdown-item {
-    @apply z-50 py-2 w-full cursor-pointer hover:bg-white-var first:rounded-tl-lg first:rounded-tr-lg last:rounded-bl-lg last:rounded-br-lg
-  }
+	.base-dropdown {
+		@apply relative border border-white p-1 pl-4 rounded-full flex items-center h-fit min-w-fit;
+	}
+
+	.dropdown {
+		@apply z-50 absolute top-12 right-1 w-[12rem] h-[16rem] grid grid-cols-3 justify-center	items-center justify-items-stretch divide-y divide-x overflow-y-auto bg-white text-black text-center rounded-lg drop-shadow-lg;
+	}
+
+	.dropdownKm {
+		@apply z-50 absolute top-12 right-1 w-[16rem] h-[16rem] grid grid-cols-2 justify-center	items-center justify-items-stretch divide-y divide-x overflow-y-auto bg-white text-black text-center rounded-lg drop-shadow-lg;
+	}
+
+	.dropdown-item {
+		@apply w-full h-full px-4 py-2 cursor-pointer hover:bg-white-var;
+	}
 </style>

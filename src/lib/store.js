@@ -41,6 +41,9 @@ export const itemRisetKm = writable([{
     __v: 0
 }]);
 
+// Database
+export const itemDataDatabase = writable({});
+
 // Tentang
 export const aboutDescData = writable([{
     _id: '',

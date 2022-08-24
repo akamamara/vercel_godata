@@ -8,13 +8,20 @@
 	import { getRisetGoData } from '$lib/_api';
 	import { itemRisetGoData } from '$lib/store';
 	import { resetPaginationGoData, updateStateTypeRiset } from '$lib/utils/risetUtils';
+	import { limitGoData, loadMoreVisibility } from '$lib/store/risetStore';
+	import { get } from 'svelte/store';
 </script>
 
 <script>
 	updateStateTypeRiset($page.routeId?.toString().split('/').pop());
 	onMount(async () => {
 		resetPaginationGoData();
-		getRisetGoData().then((res) => itemRisetGoData.set(res.data.results));
+		getRisetGoData().then((res) => {
+			if (res.data.results.length < get(limitGoData)) {
+				loadMoreVisibility.set(false);
+			}
+			itemRisetGoData.set(res.data.results);
+		});
 	});
 </script>
 

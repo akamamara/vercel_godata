@@ -3,6 +3,8 @@
 	import OrgDetailRiset from '$lib/components/organism/riset/OrgDetailRiset.svelte';
 	import { getRisetGodataById } from '$lib/_api';
 	import { page } from '$app/stores';
+	import { get } from 'svelte/store';
+	import { yearGoData } from '$lib/store/risetStore';
 </script>
 
 <script>
@@ -20,9 +22,12 @@
 
 	onMount(async () => {
 		getRisetGodataById($page.params.id).then((res) => {
+			console.log('dataRiset', res.data);
 			dataRiset = res.data;
 		});
 	});
 </script>
 
-<OrgDetailRiset dataGoData={dataRiset} />
+{#if dataRiset._id !== ''}
+	<OrgDetailRiset dataGoData={dataRiset} />
+{/if}

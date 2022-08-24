@@ -9,7 +9,7 @@
 </script>
 
 <script>
-	const listActionDb = {
+	export let listActionDb = {
 		staff: [
 			{
 				title: 'Pimpinan IPB',
@@ -92,13 +92,13 @@
 	};
 </script>
 
-<section name="database-list" class="bg-primary h-full py-6 mt-4">
+<section name="database-list">
 	<div class="main-container">
-		<div class="bg-yellow py-4 px-16 mx-auto mb-8 w-fit border border-yellow-stroke rounded-xl">
+		<div class="title-database">
 			<AtomTextHeading element="h2" _class="text-white">Daftar</AtomTextHeading>
 		</div>
 
-		<div class="grid grid-cols-1 gap-4">
+		<div class="list-database">
 			<MoleculeCardDatabase
 				ilustration={PimpinanPegawaiStaffIcon}
 				dbName="Pimpinan Pegawai Staff"
@@ -141,4 +141,15 @@
 </section>
 
 <style>
+	section {
+		@apply bg-primary h-full mt-6 py-12 md:py-16;
+	}
+
+	.title-database {
+		@apply bg-yellow py-4 px-16 mx-auto mb-8 w-fit border border-yellow-stroke rounded-xl;
+	}
+
+	.list-database {
+		@apply grid grid-cols-1 gap-4;
+	}
 </style>

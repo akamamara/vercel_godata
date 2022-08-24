@@ -30,6 +30,8 @@
 			Carousel = module.default;
 		});
 	});
+
+	$: console.log(item);
 </script>
 
 <svelte:window />
@@ -116,21 +118,10 @@
 		background: linear-gradient(
 			180deg,
 			#2b6a66 0%,
-			rgba(76, 128, 124, 0.841922) 27.6%,
-			rgba(251, 244, 241, 0) 95.21%
+			rgba(76, 128, 124, 0.841922) 23%,
+			rgba(251, 244, 241, 0) 95%
 		);
-		@apply z-[1] absolute top-0 left-0 h-[80%] w-full;
-	}
-
-	.overlay-bg::after {
-		content: '';
-		background: linear-gradient(
-			0deg,
-			#2b6a66 0%,
-			rgba(76, 128, 124, 0.841922) 27.6%,
-			rgba(251, 244, 241, 0) 95.21%
-		);
-		@apply z-[1] absolute bottom-0 left-0 h-[40%] w-full opacity-90;
+		@apply z-[1] absolute top-[-1rem] left-0 h-[80%] w-full;
 	}
 
 	.overlay-bg {
@@ -139,7 +130,7 @@
 		background-position: center;
 		background-repeat: no-repeat;
 		background-origin: content-box;
-		@apply z-0 absolute bottom-0 left-0 w-full h-[70%];
+		@apply z-0 absolute bottom-0 left-0 w-full h-[80%] opacity-30;
 	}
 
 	.carousel {

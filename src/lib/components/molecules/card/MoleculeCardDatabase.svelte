@@ -20,6 +20,8 @@
 			href: ''
 		}
 	];
+
+	$: console.log(actionList);
 </script>
 
 <div class="card-db">
@@ -31,7 +33,7 @@
 						variant="barebone"
 						size="small"
 						full
-						on:click={(_) => onClickRefer(item.href)}
+						on:click={() => onClickRefer(item.href)}
 						_class={btnDataStyle}>{item.title}</AtomButton
 					>
 				{/each}
