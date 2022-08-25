@@ -31,24 +31,34 @@
 
 	let menuClicked = false;
 	let Viewport;
-	let smView = true;
-	$: if (smView) menuClicked = false;
+	let mdView;
+	$: mdView = false;
+	$: if (mdView) menuClicked = false;
 
 	onMount(async () => {
 		await import('svelte-viewport-info').then((module) => (Viewport = module.default));
+
+		document.addEventListener('click', function handleClickOutsideBox(event) {
+			const blocker = document.getElementById('blocker');
+
+			if (blocker?.contains(event.target) && menuClicked) {
+				menuClicked = false;
+			}
+		});
 	});
 </script>
 
 <svelte:body
 	on:viewportchanged={() => {
-		smView = Viewport.Width >= 640 ? true : false;
+		mdView = Viewport.Width >= 768 ? true : false;
 	}} />
 
 <div class="fixed w-full h-fit top-[1rem] z-[48]">
 	{#if menuClicked}
+		<div class:blocked={menuClicked == true} id="blocker" />
 		<nav
-			in:fly={{ x: -200, duration: 300 }}
-			out:fly={{ x: -200, duration: 300 }}
+			in:fly={{ x: 200, duration: 300 }}
+			out:fly={{ x: 200, duration: 300 }}
 			class:mobilenav={menuClicked == true}
 		>
 			<div class="main-container">
@@ -72,16 +82,19 @@
 	{/if}
 
 	<div class="navbar main-container">
+		<div class="logo" on:click={() => goto('/')}>
+			<MoleculeGoDataLogo height={8} />
+		</div>
+		{#if !mdView}
+			<div class="grow" />
+		{/if}
 		<button
 			type="button"
 			class="text-primary z-50 md:hidden"
 			on:click={() => (menuClicked = !menuClicked)}
 		>
-			<MenuIcon />
+			<MenuIcon size="28" />
 		</button>
-		<div class="logo" on:click={() => goto('/')}>
-			<MoleculeGoDataLogo height={8} />
-		</div>
 		<nav class="hidden md:block">
 			<MoleculeNavItem {items} />
 		</nav>
@@ -99,7 +112,7 @@
 
 	/* TODO: Make mobilenav when on top container not push another container */
 	.mobilenav {
-		@apply z-[49] absolute top-0 left-0 top-[-1rem] md:hidden min-h-screen w-[65%] bg-white px-2.5 pt-7 drop-shadow-lg md:relative md:top-0 md:left-0 md:block md:h-fit md:w-fit md:bg-transparent md:drop-shadow-none md:p-0 md:drop-shadow-none transition-all;
+		@apply z-[49] absolute right-0 top-[-1rem] md:hidden min-h-screen w-[65%] bg-white px-3.5 pt-7 flex flex-col items-end text-right drop-shadow-lg md:relative md:top-0 md:right-0 md:block md:h-fit md:w-fit md:bg-transparent md:drop-shadow-none md:p-0 md:drop-shadow-none transition-all;
 	}
 
 	.mobilenav button {
@@ -107,6 +120,6 @@
 	}
 
 	.logo {
-		@apply flex flex-row items-center justify-center text-[2rem] text-primary font-bold pl-3 cursor-pointer;
+		@apply flex flex-row items-center justify-center text-[2rem] text-primary font-bold pl-0 sm:pl-3 cursor-pointer;
 	}
 </style>

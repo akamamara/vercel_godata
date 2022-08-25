@@ -5,19 +5,33 @@
 	import OrgAboutUsListTeam from '$lib/components/organism/aboutUs/OrgAboutUsListTeam.svelte';
 
 	import { getAboutDescription, getListDivisionPerson } from '$lib/_api';
-	import { aboutDescData, aboutPersonData } from '$lib/store';
+	import { loading, aboutDescData, aboutPersonData } from '$lib/store';
 	import { get } from 'svelte/store';
 </script>
 
 <script>
-	$: loading = true;
 	onMount(async () => {
-		Promise.all([getAboutDescription(), getListDivisionPerson()]).then((values) => {
-			// aboutDescData.set(values[0].data);
-			aboutPersonData.set(values[1].data);
-			loading = false;
-		});
+		loading.set(true);
+		Promise.all([getAboutDescription(), getListDivisionPerson()])
+			.then((values) => {
+				aboutDescData.set(values[0].data);
+
+				let data = values[1].data;
+				let divisionList = {};
+				data.forEach((item) => {
+					divisionList[item.division.toString()] = data.filter(
+						(dataItem) => dataItem.division == item.division
+					);
+
+					data = data.filter((dataItem) => dataItem.division != item.division);
+				});
+				aboutPersonData.set(divisionList);
+			})
+			.finally(() => loading.set(false));
 	});
+
+	$: console.log('aboutDescData:', $aboutDescData);
+	$: console.log('aboutPersonData:', $aboutPersonData);
 </script>
 
 <svelte:head>
@@ -25,9 +39,9 @@
 	<meta name="description" content="Anggota GO Data Risbang BEM KM IPB" />
 </svelte:head>
 
-{#if !loading}
+{#if !$loading}
 	<section name="hero-banner" class="main-container pt-[4.75rem]">
 		<OrgAboutUsBanner description={$aboutDescData[0].description} />
 	</section>
-	<OrgAboutUsListTeam />
+	<OrgAboutUsListTeam divisionList={$aboutPersonData} />
 {/if}

@@ -20,6 +20,7 @@
 		title: '',
 		description: '',
 		responden: 0,
+		database: '',
 		report: '',
 		image: '',
 		__v: 0
@@ -37,9 +38,6 @@
 	};
 
 	updateStateTypeRiset($page.routeId?.split('/')[1]);
-
-	const dummyDesc =
-		'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam congue tristique mi vel fermentum. Cras laoreet facilisis risus, ut porttitor risus porttitor eget. Donec eget leo quis augue posuere cursus tempus sed lectus. Aliquam egestas elementum euismod. Integer pulvinar facilisis lectus rutrum suscipit. Phasellus id vehicula arcu. Proin vulputate diam nulla, ut aliquet nisl ultricies sit amet. Ut quam felis, porttitor quis iaculis eu, molestie at tellus. Sed vitae quam hendrerit, finibus augue ut, egestas lorem. Pellentesque dignissim malesuada lacus, vitae finibus urna.\n Mauris hendrerit magna sit amet ex sagittis aliquam at id velit. Donec turpis ipsum, volutpat ac volutpat a, tincidunt nec nisi. Morbi non iaculis est. Cras accumsan dictum nibh, id aliquam augue porta mollis. Phasellus viverra urna non pellentesque congue. Aliquam lacinia, lacus vel pretium malesuada, tortor est maximus dui, sed ultricies libero dolor id dui. Aenean non molestie tellus. Suspendisse potenti. \n Morbi posuere at sem sit amet eleifend. Fusce pulvinar turpis at nibh ultrices pellentesque. Sed mollis, tellus vitae imperdiet accumsan, massa augue ultrices orci, vitae dapibus lectus libero ut ante. Ut eu aliquet mi, eu venenatis justo. Proin placerat massa non nunc pulvinar tristique. Aliquam vestibulum sagittis nisl eget ultricies. Suspendisse augue est, tempus eu consectetur ut, dignissim quis mauris. Proin diam dolor, sagittis eu augue a, suscipit fringilla justo. Nulla lobortis fringilla finibus.';
 
 	const btnClasses = 'bg-primary text-white enabled:active:bg-primary-darker';
 </script>
@@ -64,13 +62,13 @@
 			{/if}
 		</div>
 		<div class="article-content">
-			{#each stateGoData ? dummyDesc.split('\n') : dataKm.description.split('\n') as item}
+			{#each $stateGoData ? dataGoData.description.split('\n') : dataKm.description.split('\n') as item}
 				<AtomTextBody>{item}</AtomTextBody>
 			{/each}
 		</div>
 		<div class="grow" />
 		<div class="btn-action">
-			{#if $stateGoData}
+			{#if $stateKm}
 				<AtomButton
 					on:click={() => onClickRefer(dataGoData.report)}
 					variant="barebone"
@@ -81,7 +79,7 @@
 				</AtomButton>
 			{:else}
 				<AtomButton
-					on:click={() => onClickRefer('/database')}
+					on:click={() => onClickRefer(dataGoData.database)}
 					variant="barebone"
 					state="primary"
 					_class={btnClasses}
@@ -89,7 +87,7 @@
 					Dashboard
 				</AtomButton>
 				<AtomButton
-					on:click={() => onClickRefer(dataKm.report)}
+					on:click={() => onClickRefer(dataGoData.report)}
 					variant="barebone"
 					state="primary"
 					_class={btnClasses}

@@ -4,25 +4,23 @@
 	export let size = 'normal';
 </script>
 
-{#if size == 'small'}
-	<svelte:element this={element} class="body-text small {_class}">
-		<slot />
-	</svelte:element>
-{:else if size == 'normal'}
-	<svelte:element this={element} class="body-text normal {_class}">
-		<slot />
-	</svelte:element>
-{:else}
-	<svelte:element this={element} class="body-text {_class}">
-		<slot />
-	</svelte:element>
-{/if}
+<svelte:element this={element} class="body-text {size} {_class}">
+	<slot />
+</svelte:element>
 
 <style>
 	@tailwind components;
 	@layer components {
 		.body-text {
-			@apply opacity-90 leading-relaxed;
+			@apply opacity-[.85] leading-relaxed;
+		}
+
+		.extra-big {
+			@apply text-[1.325rem];
+		}
+
+		.big {
+			@apply text-xl;
 		}
 
 		.normal {

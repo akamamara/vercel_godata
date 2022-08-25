@@ -8,14 +8,17 @@
 
 	import OrgHeroBannerRiset from '$lib/components/organism/riset/OrgHeroBannerRiset.svelte';
 	import OrgListRiset from '$lib/components/organism/riset/OrgListRiset.svelte';
-	import { maxPageKm } from '$lib/store/risetStore';
+	import { ministryKm, maxPageKm, pageKm, loadingRiset } from '$lib/store/risetStore';
 </script>
 
 <script>
 	updateStateTypeRiset($page.routeId?.toString().split('/').pop());
 
+	$: console.log('LoadingRiset: ', $loadingRiset);
+
 	onMount(async () => {
-		getRisetKmData().then((res) => {
+		pageKm.set(1);
+		getRisetKmData($pageKm, $ministryKm).then((res) => {
 			maxPageKm.set(res.data.totalPages);
 			itemRisetKm.set(res.data.results);
 		});

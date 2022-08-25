@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store';
 
+export const loading = writable(true);
 // Form
 export const formData = writable({
     _id: '',
@@ -51,11 +52,11 @@ export const aboutDescData = writable([{
     __v: 0
 }]);
 
-export const aboutPersonData = writable([{
+export const aboutPersonData = writable({
     _id: '',
     division: '',
     name: '',
     position: '',
     image: '',
     __v: ''
-}]);
+});

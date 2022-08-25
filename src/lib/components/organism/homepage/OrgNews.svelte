@@ -30,6 +30,8 @@
 			Carousel = module.default;
 		});
 	});
+
+	$: console.log(item);
 </script>
 
 <svelte:window />
@@ -140,6 +142,6 @@
 	}
 
 	.carousel-action {
-		@apply z-10 grid grid-cols-2 w-fit gap-3 pt-4;
+		@apply z-10 mt-[-2.25rem] grid grid-cols-2 w-fit gap-3 pt-4;
 	}
 </style>

@@ -1,11 +1,12 @@
 <script>
 	export let size = '84';
+	export let fill = 'currentColor';
 </script>
 
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	id="LogoGoDataIjo"
-	fill="currentColor"
+	{fill}
 	x="0"
 	y="0"
 	width="{size}px"

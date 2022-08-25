@@ -1,5 +1,6 @@
 <script context="module">
 	import { onMount } from 'svelte';
+	import { get } from 'svelte/store';
 	import { page } from '$app/stores';
 
 	import OrgHeroBannerRiset from '$lib/components/organism/riset/OrgHeroBannerRiset.svelte';
@@ -9,7 +10,6 @@
 	import { itemRisetGoData } from '$lib/store';
 	import { resetPaginationGoData, updateStateTypeRiset } from '$lib/utils/risetUtils';
 	import { limitGoData, loadMoreVisibility } from '$lib/store/risetStore';
-	import { get } from 'svelte/store';
 </script>
 
 <script>

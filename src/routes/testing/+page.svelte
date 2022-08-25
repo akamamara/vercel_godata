@@ -1,24 +1,23 @@
 <script>
-	import AtomTextBody from '$lib/components/atom/typography/AtomTextBody.svelte';
-	import LogoGoDataIjo from '$lib/logo/LogoGoDataIjo.svelte';
+	import MoleculeCardRiset from '$lib/components/molecules/card/MoleculeCardRiset.svelte';
 </script>
 
-<section class="relative flex flex-col items-center justify-center">
-	<div class="relative center">
-		<div class="absolute inline-flex animate-ping z-0 bg-primary/30 rounded-full w-14 h-14" />
-		<div class="absolute inline-flex center z-10 bg-primary/20 rounded-full w-[72px] h-[72px]" />
-		<span class="animate-spin z-20 text-primary" style="height:48px; width:48px;">
-			<LogoGoDataIjo size={(48).toString()} />
-		</span>
+<div class="container bg-primary">
+	<div class="main-container">
+		<div class="riset-godata-list">
+			{#each { length: 6 } as _}
+				<MoleculeCardRiset pulse />
+			{/each}
+		</div>
 	</div>
-</section>
+</div>
 
 <style>
-	section {
-		@apply bg-white-var h-screen w-screen;
+	.container {
+		@apply z-[10] pt-[6.25rem] relative flex flex-col items-center justify-center min-h-screen;
 	}
 
-	.center {
-		@apply flex justify-center items-center;
+	.riset-godata-list {
+		@apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-8 mb-4 sm:mt-12 mx-auto w-[90%] sm:w-full;
 	}
 </style>

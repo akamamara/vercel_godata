@@ -13,36 +13,66 @@
 	export let title = '';
 	export let imgSrc = '';
 	export let responden = 0;
+	export let pulse = false;
 
-	$: imgHeight = 11.25;
+	$: imgHeight = 14.25;
 </script>
 
-<div class="card">
-	<!-- Cover Image -->
-	<div class="card-image" style="height: {imgHeight}rem;">
-		<img src={imgSrc} alt="Ilustration of research {title}" />
-		<div class="chip-t-respondent">
-			<AtomChip icon={UsersIcon} _class="bg-secondary text-white" size="small" iconPosition="left">
-				{responden}
-			</AtomChip>
+{#if !pulse}
+	<div class="card">
+		<!-- Cover Image -->
+		<div class="bg-black/[.1]" style="height: {imgHeight}rem;">
+			<div class="chip-t-respondent">
+				<AtomChip
+					icon={UsersIcon}
+					_class="bg-black/[.1] text-white"
+					size="small"
+					iconPosition="left"
+				/>
+			</div>
+		</div>
+		<!-- Body -->
+		<div class="card-body">
+			<!-- Title -->
+			<div class="card-heading">
+				<slot name="heading" />
+			</div>
+			<div class="card-content">
+				<slot name="body" />
+			</div>
+			<div class="overlay-more">
+				<AtomButton size="small" on:click={() => onClickRefer(`/${$page.routeId}/${id}`)}
+					>Lainnya</AtomButton
+				>
+			</div>
 		</div>
 	</div>
-	<!-- Body -->
-	<div class="card-body">
-		<!-- Title -->
-		<div class="card-heading">
-			<slot name="heading" />
+{:else}
+	<div class="card animate-pulse">
+		<!-- Cover Image -->
+		<div class="card-image bg-black/10" style="height: {imgHeight}rem;">
+			<div class="chip-t-respondent">
+				<div class="bg-black/20 text-white w-16 h-5 rounded-full" />
+			</div>
 		</div>
-		<div class="card-content">
-			<slot name="body" />
-		</div>
-		<div class="overlay-more">
-			<AtomButton size="small" on:click={() => onClickRefer(`/${$page.routeId}/${id}`)}
-				>Lainnya</AtomButton
-			>
+		<!-- Body -->
+		<div class="card-body w-full p-2">
+			<!-- Title -->
+			<div class="card-heading">
+				<div class="w-[50%] bg-black/20 h-5 rounded-full mx-auto mb-3" />
+			</div>
+			<div class="card-content grid grid-cols-1 gap-2">
+				<div class="mx-auto w-[40%] bg-black/20 h-3 rounded-full" />
+				<div class="mx-auto w-[100%] bg-black/20 h-3 rounded-full" />
+				<div class="mx-auto w-[70%] bg-black/20 h-3 rounded-full" />
+				<div class="mx-auto w-[50%] bg-black/20 h-3 rounded-full" />
+			</div>
+			<div class="overlay-more">
+				<div class="w-24 h-6 rounded-full bg-black/20 drop-shadow-lg" />
+			</div>
 		</div>
 	</div>
-</div>
+{/if}
 
 <style>
 	.card {

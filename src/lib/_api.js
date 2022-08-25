@@ -1,20 +1,40 @@
+import { browser } from '$app/env';
 import {get } from 'svelte/store';
-import { itemRisetGoData } from './store';
-import { limitGoData, loadingLoadMore, loadMoreVisibility, pageGoData } from './store/risetStore';
+import { itemRisetGoData, loading } from './store';
+import {
+    limitGoData,
+    loadingLoadMore,
+    loadingRiset,
+    loadMoreVisibility,
+    pageGoData
+} from './store/risetStore';
 
 // const baseUrl = import.meta.env.VITE_BASE_API;
 const baseUrl = 'https://web-godata-admin-git-development-codepanda.vercel.app/api';
 // const baseUrl = 'http://localhost:3000/api';
 
-async function fetchApi(endpoint = '', method = 'GET') {
-    return await fetch(baseUrl + endpoint, {
+async function fetchApi(endpoint = '', component = false, method = 'GET') {
+    if (!get(loading) && !component) loading.set(true);
+    let data;
+    const res = await fetch(baseUrl + endpoint, {
             method: method,
             headers: {
                 Accept: 'application/json'
             }
         })
-        .then((res) => res.json())
-        .catch((err) => console.log(err));
+        .then((res) => {
+            if (res.status === 200) {
+                return res.json();
+            }
+            throw new Error(res.status + '. Something went wrong. Message: ' + res.statusText);
+        })
+        .catch((err) => {
+            if (browser) alert(err);
+            console.error(err);
+        })
+        .finally(() => loading.set(false));
+    data = res;
+    return data;
 }
 // TODO: Add fallback when message not success
 
@@ -31,13 +51,20 @@ export async function getHomeNews() {
 }
 
 // Riset
-export async function getRisetGoData(page = 1, year = 2022, limit = 6) {
-    const res = await fetchApi(`/research-go-data?limit=${limit}&page=${page}&year=${year}`);
+export async function getRisetGoData(page = 1, year = 2022, component = true, limit = 6) {
+    const res = await fetchApi(
+        `/research-go-data?limit=${limit}&page=${page}&year=${year}`,
+        component
+    );
     return res;
 }
 
-export async function getRisetKmData(page = 1, ministry = '', limit = 6) {
-    const res = await fetchApi(`/research-km-ipb?limit=${limit}&ministry=${ministry}&page=${page}`);
+export async function getRisetKmData(page = 1, ministry = '', component = true, limit = 6) {
+    loadingRiset.set(true);
+    const res = await fetchApi(
+        `/research-km-ipb?limit=${limit}${'&ministry=' + ministry}&page=${page}`,
+        component
+    ).finally(() => loadingRiset.set(false));
     return res;
 }
 

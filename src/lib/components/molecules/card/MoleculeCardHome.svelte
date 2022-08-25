@@ -38,7 +38,7 @@
 	}
 
 	.card-image img {
-		@apply object-cover w-full h-[11.25rem] rounded-xl;
+		@apply object-cover bg-[#e4e4e4] w-full h-[11.25rem] rounded;
 	}
 
 	.card-image {

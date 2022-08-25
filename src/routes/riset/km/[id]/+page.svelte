@@ -10,11 +10,20 @@
 </script>
 
 <script>
-	$: loading = true;
-	$: dataRiset = get(itemRisetKm);
+	$: dataRiset = {
+		_id: '',
+		ministry: '',
+		title: '',
+		description: '',
+		researcher: '',
+		date: '',
+		report: '',
+		__v: 0
+	};
 
 	onMount(async () => {
 		getRisetKmById($page.params.id).then((res) => {
+			console.log('dataRiset', res.data);
 			dataRiset = res.data;
 		});
 	});

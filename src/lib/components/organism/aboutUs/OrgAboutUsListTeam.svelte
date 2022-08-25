@@ -1,41 +1,15 @@
 <script context="module">
-	import { get } from 'svelte/store';
-
 	import AtomTextHeading from '$lib/components/atom/typography/AtomTextHeading.svelte';
 	import MoleculeCardTeam from '$lib/components/molecules/card/MoleculeCardTeam.svelte';
 
 	import { aboutPersonData } from '$lib/store';
+	import { get } from 'svelte/store';
 </script>
 
 <script>
-	export let data = get(aboutPersonData);
+	export let divisionList = {};
 
-	let divisionList = {};
-	data.forEach((item) => {
-		divisionList[item.division.toString()] = data.filter(
-			(dataItem) => dataItem.division == item.division
-		);
-
-		data = data.filter((dataItem) => dataItem.division != item.division);
-	});
-
-	const testData = [
-		{
-			name: 'Fajar Himawan',
-			occupation: 'Secretary',
-			imgSrc: './manThinking.png'
-		},
-		{
-			name: 'Khairani Cahyoja Utami',
-			occupation: 'Director',
-			imgSrc: './womanPortrait.png'
-		},
-		{
-			name: 'Ardelle Albani',
-			occupation: 'Treasurer',
-			imgSrc: './manPortrait.png'
-		}
-	];
+	$: console.log('divisionList', divisionList);
 </script>
 
 <section>

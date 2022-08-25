@@ -7,7 +7,7 @@
 
 <div class="home-banner">
 	<div class="grid grid-cols-1 gap-3">
-		<AtomTextHeading element="h1" style="title">Database</AtomTextHeading>
+		<AtomTextHeading element="h1" type="title">Database</AtomTextHeading>
 		<AtomTextBody
 			>Pengumpulan berbagai macam database yang berguna bagi civitas IPB. Hasil dari database ini
 			diharapkan dapat dimanfaatkan oleh seluruh KM IPB dengan bijak. Database diperoleh dari

@@ -5,11 +5,12 @@
 	import AtomButton from '$lib/components/atom/button/AtomButton.svelte';
 	import AtomTextBody from '$lib/components/atom/typography/AtomTextBody.svelte';
 	import { itemRisetGoData, itemRisetKm, stateGoData } from '$lib/store';
-	import { pageGoData, pageKm } from '$lib/store/risetStore';
+	import { yearGoData, pageGoData, pageKm, ministryKm, loadingRiset } from '$lib/store/risetStore';
 	import { getRisetGoData, getRisetKmData } from '$lib/_api';
 	import { ChevronDownIcon } from 'svelte-feather-icons';
 	import { stateKm } from '$lib/store';
 	import { get } from 'svelte/store';
+	import { onMount } from 'svelte';
 </script>
 
 <script>
@@ -23,6 +24,16 @@
 	$: if (listDropDownRisetGodata.length || listDropDownRisetKM.length)
 		currentSelection = get(stateGoData) ? listDropDownRisetGodata[0] : listDropDownRisetKM[0];
 
+	onMount(() => {
+		document.addEventListener('click', function handleClickOutsideBox(event) {
+			const dropdown = document.getElementById('dropdown');
+
+			if (!dropdown.contains(event.target) && btnClicked) {
+				btnClicked = false;
+			}
+		});
+	});
+
 	const handleDropDownClick = () => {
 		btnClicked = !btnClicked;
 	};
@@ -33,21 +44,28 @@
 
 		if (browser)
 			if (get(stateGoData)) {
+				yearGoData.set(parseInt(currentSelection));
 				pageGoData.set(1);
-				getRisetGoData($pageGoData, parseInt(item)).then((res) =>
-					itemRisetGoData.set(res.data.results)
-				);
+				loadingRiset.set(true);
+				getRisetGoData($pageGoData, parseInt(item))
+					.then((res) => itemRisetGoData.set(res.data.results))
+					.finally(() => loadingRiset.set(false));
 			}
 		if (get(stateKm)) {
+			ministryKm.set(currentSelection);
 			pageKm.set(1);
-			getRisetKmData($pageKm, item === 'Lainnya' ? '' : item).then((res) => {
-				itemRisetKm.set(res.data.results);
-			});
+			loadingRiset.set(true);
+			getRisetKmData($pageKm, item === 'Lainnya' ? '' : item)
+				.then((res) => {
+					console.log(res.data.results);
+					itemRisetKm.set(res.data.results);
+				})
+				.finally(() => loadingRiset.set(false));
 		}
 	};
 </script>
 
-<div class="base-dropdown {_class}">
+<div class="base-dropdown {_class}" id="dropdown">
 	<slot name="title" />
 	<div class="grow mx-2" />
 	<AtomButton
@@ -84,11 +102,11 @@
 	}
 
 	.dropdown {
-		@apply z-50 absolute top-12 right-1 w-[12rem] h-[16rem] grid grid-cols-3 justify-center	items-center justify-items-stretch divide-y divide-x overflow-y-auto bg-white text-black text-center rounded-lg drop-shadow-lg;
+		@apply z-[45] absolute top-12 right-1 w-[12rem] h-fit max-h-[16rem] grid grid-cols-3 justify-center	items-center justify-items-stretch divide-y divide-x overflow-y-auto bg-white text-black text-center rounded-lg drop-shadow-lg;
 	}
 
 	.dropdownKm {
-		@apply z-50 absolute top-12 right-1 w-[16rem] h-[16rem] grid grid-cols-2 justify-center	items-center justify-items-stretch divide-y divide-x overflow-y-auto bg-white text-black text-center rounded-lg drop-shadow-lg;
+		@apply z-[45] absolute top-12 right-1 w-[16rem] h-[16rem] grid grid-cols-2 justify-center	items-center justify-items-stretch divide-y divide-x overflow-y-auto bg-white text-black text-center rounded-lg drop-shadow-lg;
 	}
 
 	.dropdown-item {

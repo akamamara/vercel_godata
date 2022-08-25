@@ -1,6 +1,8 @@
 <script context="module">
+	import { get } from 'svelte/store';
 	import { ChevronRightIcon } from 'svelte-feather-icons';
 
+	import { itemRisetGoData, itemRisetKm } from '$lib/store';
 	import { formData, stateGoData, stateKm } from '$lib/store';
 
 	import AtomButton from '$lib/components/atom/button/AtomButton.svelte';
@@ -11,14 +13,24 @@
 	import MoleculeListsRisetKm from '$lib/components/molecules/lists/MoleculeListsRisetKm.svelte';
 	import MoleculePagination from '$lib/components/molecules/lists/MoleculePagination.svelte';
 
-	import { get } from 'svelte/store';
-	import { itemRisetGoData, itemRisetKm } from '$lib/store';
-	import { maxPageKm, pageKm, loadingLoadMore, loadMoreVisibility } from '$lib/store/risetStore';
+	import {
+		ministryKm,
+		yearGoData,
+		maxPageKm,
+		pageKm,
+		loadingLoadMore,
+		loadMoreVisibility
+	} from '$lib/store/risetStore';
 	import { loadMoreRisetGoData } from '$lib/_api';
 	import { onClickRefer } from '$lib/utils/buttonUtils';
+	import OrgErrorRiset from '../error/OrgErrorRiset.svelte';
+	import { loadingRiset } from '$lib/store/risetStore';
 </script>
 
 <script>
+	$: console.log('Godata:', get(stateGoData), 'Km:', get(stateKm));
+
+	const minYear = 2010;
 	const listDropDownRisetKM = [
 		'Jakda',
 		'Jagrikom',
@@ -47,8 +59,8 @@
 					<div class="grow" />
 					<MoleculeDropDown
 						listDropDownRisetGodata={Array.from(
-							{ length: new Date().getYear() - 99 },
-							(v = 2000, i) => v + i
+							{ length: new Date().getFullYear() - minYear },
+							(v = minYear, i) => v + i
 						).reverse()}
 					>
 						<AtomTextBody slot="title">Tahun</AtomTextBody>
@@ -60,23 +72,37 @@
 					metode pengumpulan data yang kerap kami gunakan adalah metode survei, baik itu dengan
 					metode Probability Sampling maupun Non Probability Sampling.
 				</AtomTextBody>
-				<div class="riset-godata-list">
-					{#each $itemRisetGoData as item}
-						<MoleculeCardRiset
-							id={item._id}
-							title={item.title}
-							imgSrc={item.image}
-							responden={item.responden}
-						>
-							<AtomTextHeading element="h3" type="title-subheading" slot="heading">
-								{item.title}
-							</AtomTextHeading>
-							<AtomTextBody slot="body" size="small" _class="opacity-[65%] text-black">
-								{item.description.substring(0, 240) + '...'}
-							</AtomTextBody>
-						</MoleculeCardRiset>
-					{/each}
-				</div>
+				{#if $loadingRiset}
+					<div class="riset-godata-list">
+						{#each { length: 3 } as _}
+							<MoleculeCardRiset pulse />
+						{/each}
+					</div>
+				{:else if !$itemRisetGoData.length}
+					<OrgErrorRiset title="Riset GODATA">
+						<AtomTextBody>
+							Riset pada tahun {$yearGoData} <strong>tidak ditemukan</strong>
+						</AtomTextBody>
+					</OrgErrorRiset>
+				{:else}
+					<div class="riset-godata-list">
+						{#each $itemRisetGoData as item}
+							<MoleculeCardRiset
+								id={item._id}
+								title={item.title}
+								imgSrc={item.image}
+								responden={item.responden}
+							>
+								<AtomTextHeading element="h3" type="title-subheading" slot="heading">
+									{item.title}
+								</AtomTextHeading>
+								<AtomTextBody slot="body" size="small" _class="opacity-[65%] text-black">
+									{item.description.substring(0, 165) + '...'}
+								</AtomTextBody>
+							</MoleculeCardRiset>
+						{/each}
+					</div>
+				{/if}
 				{#if $loadMoreVisibility}
 					<div class="mt-8 w-fit mx-auto">
 						{#if !$loadingLoadMore}
@@ -121,11 +147,23 @@
 						<AtomTextBody slot="title">Kementerian</AtomTextBody>
 					</MoleculeDropDown>
 				</div>
-				<MoleculeListsRisetKm data={$itemRisetKm} />
-				{#if $maxPageKm !== $pageKm}
-					<div class="w-full">
-						<MoleculePagination maxNumber={$maxPageKm} counter={$pageKm} />
-					</div>
+				{#if $loadingRiset}
+					{#each { length: 3 } as _}
+						<MoleculeListsRisetKm />
+					{/each}
+				{:else if !$itemRisetKm.length}
+					<OrgErrorRiset title="Riset KM">
+						<AtomTextBody>
+							Riset pada Kementerian {$ministryKm} <strong>tidak ditemukan</strong>
+						</AtomTextBody>
+					</OrgErrorRiset>
+				{:else}
+					<MoleculeListsRisetKm data={$itemRisetKm} />
+					{#if $maxPageKm !== 1}
+						<div class="w-full">
+							<MoleculePagination maxNumber={$maxPageKm} counter={$pageKm} />
+						</div>
+					{/if}
 				{/if}
 			</div>
 		{/if}
@@ -146,7 +184,7 @@
 	}
 
 	.riset-godata-list {
-		@apply grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 mb-4 sm:mt-12 mx-auto w-[80%] sm:w-[75%];
+		@apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-8 mb-4 sm:mt-12 mx-auto w-[90%] sm:w-full;
 	}
 
 	.riset-km-action {
