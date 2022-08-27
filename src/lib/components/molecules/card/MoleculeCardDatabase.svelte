@@ -20,8 +20,6 @@
 			href: ''
 		}
 	];
-
-	$: console.log(actionList);
 </script>
 
 <div class="card-db">

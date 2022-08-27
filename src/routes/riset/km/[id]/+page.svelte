@@ -23,7 +23,6 @@
 
 	onMount(async () => {
 		getRisetKmById($page.params.id).then((res) => {
-			console.log('dataRiset', res.data);
 			dataRiset = res.data;
 		});
 	});

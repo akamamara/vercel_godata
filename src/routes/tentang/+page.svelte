@@ -29,9 +29,6 @@
 			})
 			.finally(() => loading.set(false));
 	});
-
-	$: console.log('aboutDescData:', $aboutDescData);
-	$: console.log('aboutPersonData:', $aboutPersonData);
 </script>
 
 <svelte:head>

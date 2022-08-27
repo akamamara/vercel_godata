@@ -14,8 +14,6 @@
 <script>
 	updateStateTypeRiset($page.routeId?.toString().split('/').pop());
 
-	$: console.log('LoadingRiset: ', $loadingRiset);
-
 	onMount(async () => {
 		pageKm.set(1);
 		getRisetKmData($pageKm, $ministryKm).then((res) => {

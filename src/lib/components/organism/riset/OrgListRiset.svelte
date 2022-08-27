@@ -28,8 +28,6 @@
 </script>
 
 <script>
-	$: console.log('Godata:', get(stateGoData), 'Km:', get(stateKm));
-
 	const minYear = 2010;
 	const listDropDownRisetKM = [
 		'Jakda',
@@ -40,8 +38,9 @@
 		'Kesmah',
 		'Sosmas',
 		'Perdes',
-		'LHPSDM-KKP',
-		'KSDM-KKW',
+		'LH',
+		'PSDM-KKP',
+		'PSDM-KKW',
 		'Akpres',
 		'Senbud',
 		'Apro',
@@ -102,21 +101,21 @@
 							</MoleculeCardRiset>
 						{/each}
 					</div>
-				{/if}
-				{#if $loadMoreVisibility}
-					<div class="mt-8 w-fit mx-auto">
-						{#if !$loadingLoadMore}
-							<AtomButton
-								on:click={async () => {
-									loadingLoadMore.set(true);
-									loadMoreRisetGoData();
-								}}
-								size="small"
-							>
-								Muat lebih banyak
-							</AtomButton>
-						{/if}
-					</div>
+					{#if $loadMoreVisibility}
+						<div class="mt-8 w-fit mx-auto">
+							{#if !$loadingLoadMore}
+								<AtomButton
+									on:click={async () => {
+										loadingLoadMore.set(true);
+										loadMoreRisetGoData();
+									}}
+									size="small"
+								>
+									Muat lebih banyak
+								</AtomButton>
+							{/if}
+						</div>
+					{/if}
 				{/if}
 			</div>
 		{/if}

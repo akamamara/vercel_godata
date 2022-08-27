@@ -6,12 +6,14 @@ import {
     loadingLoadMore,
     loadingRiset,
     loadMoreVisibility,
+    ministryKm,
     pageGoData
 } from './store/risetStore';
 
-// const baseUrl = import.meta.env.VITE_BASE_API;
 const baseUrl = 'https://web-godata-admin-git-development-codepanda.vercel.app/api';
-// const baseUrl = 'http://localhost:3000/api';
+
+const currentYear = new Date().getFullYear();
+const currentMinistry = get(ministryKm);
 
 async function fetchApi(endpoint = '', component = false, method = 'GET') {
     if (!get(loading) && !component) loading.set(true);
@@ -51,7 +53,7 @@ export async function getHomeNews() {
 }
 
 // Riset
-export async function getRisetGoData(page = 1, year = 2022, component = true, limit = 6) {
+export async function getRisetGoData(page = 1, year = currentYear, component = true, limit = 6) {
     const res = await fetchApi(
         `/research-go-data?limit=${limit}&page=${page}&year=${year}`,
         component
@@ -59,10 +61,15 @@ export async function getRisetGoData(page = 1, year = 2022, component = true, li
     return res;
 }
 
-export async function getRisetKmData(page = 1, ministry = '', component = true, limit = 6) {
+export async function getRisetKmData(
+    page = 1,
+    ministry = currentMinistry,
+    component = true,
+    limit = 6
+) {
     loadingRiset.set(true);
     const res = await fetchApi(
-        `/research-km-ipb?limit=${limit}${'&ministry=' + ministry}&page=${page}`,
+        `/research-km-ipb?limit=${limit}${'&ministry=' + ministry.toLowerCase()}&page=${page}`,
         component
     ).finally(() => loadingRiset.set(false));
     return res;

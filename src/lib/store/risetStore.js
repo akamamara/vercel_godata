@@ -8,7 +8,7 @@ export const loadMoreVisibility = writable(true);
 export const pageKm = writable(1);
 export const maxPageKm = writable(2);
 export const yearGoData = writable(new Date().getFullYear());
-export const ministryKm = writable('');
+export const ministryKm = writable('Jakda');
 
 // Loading state
 export const loadingRiset = writable(false);

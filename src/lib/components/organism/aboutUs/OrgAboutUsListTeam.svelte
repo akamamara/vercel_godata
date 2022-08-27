@@ -1,15 +1,10 @@
 <script context="module">
 	import AtomTextHeading from '$lib/components/atom/typography/AtomTextHeading.svelte';
 	import MoleculeCardTeam from '$lib/components/molecules/card/MoleculeCardTeam.svelte';
-
-	import { aboutPersonData } from '$lib/store';
-	import { get } from 'svelte/store';
 </script>
 
 <script>
 	export let divisionList = {};
-
-	$: console.log('divisionList', divisionList);
 </script>
 
 <section>

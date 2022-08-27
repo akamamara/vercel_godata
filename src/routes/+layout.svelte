@@ -19,7 +19,6 @@
 		if ($formData._id === '')
 			getFormData().then((res) => {
 				formData.set(res.data);
-				console.log(res.data);
 				loading.set(false);
 			});
 	});

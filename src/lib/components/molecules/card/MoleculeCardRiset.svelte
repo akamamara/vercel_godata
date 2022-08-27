@@ -19,16 +19,19 @@
 </script>
 
 {#if !pulse}
-	<div class="card">
+	<div class="relative card">
 		<!-- Cover Image -->
-		<div class="bg-black/[.1]" style="height: {imgHeight}rem;">
+		<div class="card-image bg-black/[.1]" style="height: {imgHeight}rem;">
+			<img src={imgSrc} alt="Ilustration of research {title}" />
 			<div class="chip-t-respondent">
 				<AtomChip
 					icon={UsersIcon}
-					_class="bg-black/[.1] text-white"
+					_class="bg-secondary text-white"
 					size="small"
 					iconPosition="left"
-				/>
+				>
+					{responden}
+				</AtomChip>
 			</div>
 		</div>
 		<!-- Body -->
@@ -41,7 +44,7 @@
 				<slot name="body" />
 			</div>
 			<div class="overlay-more">
-				<AtomButton size="small" on:click={() => onClickRefer(`/${$page.routeId}/${id}`)}
+				<AtomButton size="small" on:click={() => onClickRefer(`/${$page.routeId}/${id}`, false)}
 					>Lainnya</AtomButton
 				>
 			</div>

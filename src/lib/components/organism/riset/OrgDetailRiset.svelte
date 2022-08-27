@@ -20,7 +20,7 @@
 		title: '',
 		description: '',
 		responden: 0,
-		database: '',
+		dashboard: '',
 		report: '',
 		image: '',
 		__v: 0
@@ -79,7 +79,7 @@
 				</AtomButton>
 			{:else}
 				<AtomButton
-					on:click={() => onClickRefer(dataGoData.database)}
+					on:click={() => onClickRefer(dataGoData.dashboard)}
 					variant="barebone"
 					state="primary"
 					_class={btnClasses}

@@ -61,8 +61,6 @@
 					ukm: ukm,
 					ruangan: room
 				});
-
-				console.log(get(itemDataDatabase));
 			})
 			.finally(() => loading.set(false));
 	});

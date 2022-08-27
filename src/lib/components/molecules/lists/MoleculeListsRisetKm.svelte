@@ -26,7 +26,7 @@
 	{#each data as item}
 		<button
 			type="button"
-			on:click={() => onClickRefer(`/${$page.routeId}/${item._id}`)}
+			on:click={() => onClickRefer(`/${$page.routeId}/${item._id}`, false)}
 			class={$loadingRiset ? 'animate-pulse bg-white/10' : ''}
 		>
 			{#if !$loadingRiset}
