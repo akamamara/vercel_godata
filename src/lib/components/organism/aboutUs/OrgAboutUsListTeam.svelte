@@ -1,10 +1,12 @@
 <script context="module">
 	import AtomTextHeading from '$lib/components/atom/typography/AtomTextHeading.svelte';
-	import MoleculeCardTeam from '$lib/components/molecules/card/MoleculeCardTeam.svelte';
 </script>
 
 <script>
-	export let divisionList = {};
+import OrgAboutUsTeam from "./OrgAboutUsTeam.svelte";
+
+	export let divisionList = [];
+
 </script>
 
 <section>
@@ -19,7 +21,15 @@
 				</span>
 			</AtomTextHeading>
 		</div>
-		{#if Object.keys(divisionList).length}
+		<div class="member-list">
+			<OrgAboutUsTeam divisionName="Board of Directors" divisionList={divisionList["Board of Directors"]}/>
+			<OrgAboutUsTeam divisionName="Data Analyst" divisionList={divisionList["Data Analyst"]}/>
+			<OrgAboutUsTeam divisionName="Infographic & Branding" divisionList={divisionList["Infographic & Branding"]}/>
+			<OrgAboutUsTeam divisionName="Survey & Research" divisionList={divisionList["Survey & Research"]}/>
+			<OrgAboutUsTeam divisionName="Database & Website" divisionList={divisionList["Database & Website"]}/>
+		</div>
+	
+		<!-- {#if Object.keys(divisionList).length}
 			{#each Object.keys(divisionList) as division}
 				<div class="member-division">
 					<div class="member-portrait">
@@ -32,11 +42,11 @@
 						elemet="h3"
 						_class="text-white text-center mb-4 md:mt-4 md:mb-0"
 					>
-						{division}
+						{divisionName}
 					</AtomTextHeading>
 				</div>
 			{/each}
-		{/if}
+		{/if} -->
 	</div>
 </section>
 
@@ -59,12 +69,8 @@
 		@apply absolute top-[50%] right-0 w-[20%] md:w-[36%] border-[2.5px] border-white h-[4px] rounded-full bg-white;
 	}
 
-	.member-division {
-		@apply border-2 border-yellow p-3 rounded-2xl mb-5 md:mb-8 w-fit mx-auto flex flex-col-reverse md:flex-col;
-	}
-
-	.member-portrait {
-		@apply grid grid-cols-2 md:grid-cols-3 gap-3 justify-center w-fit;
+	.member-list {
+		@apply flex flex-col gap-6;
 	}
 
 	.title-stroke {

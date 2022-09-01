@@ -13,6 +13,10 @@
 		@apply container mx-auto w-[calc(100%-44px)] xl:max-w-[900px] 2xl:max-w-screen-lg;
 	}
 
+	.nav-container {
+		@apply container mx-auto w-[calc(100%-44px)]
+	}
+
 	.blocked {
 		content: ' ';
 		@apply z-[49] fixed inset-0 bg-black/50 backdrop-blur;

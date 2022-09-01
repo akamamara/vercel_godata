@@ -2,7 +2,8 @@
 	import { goto } from '$app/navigation';
 
 	import MoleculeNavItem from '$lib/components/molecules/MoleculeNavItem.svelte';
-	import MoleculeGoDataLogo from '$lib/components/molecules/logo/MoleculeGoDataLogo.svelte';
+	// import MoleculeGoDataLogo from '$lib/components/molecules/logo/MoleculeGoDataLogo.svelte';
+	import LogoGoDataIjo from '$lib/logo/LogoGoDataIjo.svelte';
 
 	import { MenuIcon, XIcon } from 'svelte-feather-icons';
 	import { fly } from 'svelte/transition';
@@ -12,20 +13,29 @@
 <script>
 	const items = [
 		{
+			title: 'Beranda',
+			link: '/',
+			smOnly: true
+		},
+		{
 			title: 'Riset',
-			link: '/riset'
+			link: '/riset',
+			smOnly: false
 		},
 		{
 			title: 'Database',
-			link: '/database'
+			link: '/database',
+			smOnly: false
 		},
 		{
 			title: 'Website BEM KM',
-			link: 'https://bemkmipb.org'
+			link: 'https://bemkmipb.org',
+			smOnly: false
 		},
 		{
 			title: 'Tentang',
-			link: '/tentang'
+			link: '/tentang',
+			smOnly: false
 		}
 	];
 
@@ -81,9 +91,10 @@
 		</nav>
 	{/if}
 
-	<div class="navbar main-container">
+	<div class="navbar nav-container">
 		<div class="logo" on:click={() => goto('/')}>
-			<MoleculeGoDataLogo height={8} />
+			<!-- <MoleculeGoDataLogo height={8} /> -->
+			<LogoGoDataIjo size={mdView ? '48' : '32'} />
 		</div>
 		{#if !mdView}
 			<div class="grow" />
@@ -103,7 +114,7 @@
 
 <style>
 	.navbar {
-		@apply sticky flex flex-row items-center py-1 px-8 border-2 border-primary rounded-full bg-white-var/80 backdrop-blur-md	top-4 w-[95%] md:mx-auto md:justify-between;
+		@apply sticky flex flex-row items-center py-1 px-8 border-2 border-primary rounded-full bg-white-var/80 backdrop-blur-md top-4 w-[95%] md:mx-auto md:justify-between h-14 md:h-12 md:h-auto;
 	}
 
 	.navbar button {

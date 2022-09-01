@@ -10,7 +10,9 @@ import {
     pageGoData
 } from './store/risetStore';
 
+// const baseUrl = import.meta.env.VITE_BASE_API;
 const baseUrl = 'https://web-godata-admin-git-development-codepanda.vercel.app/api';
+// const baseUrl = 'http://localhost:3000/api';
 
 const currentYear = new Date().getFullYear();
 const currentMinistry = get(ministryKm);

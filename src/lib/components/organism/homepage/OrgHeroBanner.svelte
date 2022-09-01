@@ -29,7 +29,7 @@
 
 <div class="home-action">
 	<AtomButton
-		variant="primary"
+		variant="secondary"
 		icon={ChevronRightIcon}
 		on:click={() => onClickRefer($formData.survey)}>Isi Survei Sekarang!</AtomButton
 	>

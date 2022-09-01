@@ -16,15 +16,22 @@
 			.then((values) => {
 				aboutDescData.set(values[0].data);
 
-				let data = values[1].data;
-				let divisionList = {};
-				data.forEach((item) => {
-					divisionList[item.division.toString()] = data.filter(
-						(dataItem) => dataItem.division == item.division
-					);
+				let personData = values[1].data;
+				const divisionList = personData.reduce((r, a) => {
+					r[a.division] = r[a.division] || [];
+					r[a.division].push(a);
+					return r;
+				}, Object.create(null));
 
-					data = data.filter((dataItem) => dataItem.division != item.division);
-				});
+				// let data = values[1].data;
+				// let divisionList = {};
+				// data.forEach((item) => {
+				// 	divisionList[item.division.toString()] = data.filter(
+				// 		(dataItem) => dataItem.division == item.division
+				// 	);
+
+				// 	data = data.filter((dataItem) => dataItem.division != item.division);
+				// });
 				aboutPersonData.set(divisionList);
 			})
 			.finally(() => loading.set(false));
