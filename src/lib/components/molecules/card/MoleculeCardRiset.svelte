@@ -53,7 +53,7 @@
 {:else}
 	<div class="card animate-pulse">
 		<!-- Cover Image -->
-		<div class="card-image bg-black/10" style="height: {imgHeight}rem;">
+		<div class="card-image bg-black/10 h-[14.25rem]">
 			<div class="chip-t-respondent">
 				<div class="bg-black/20 text-white w-16 h-5 rounded-full" />
 			</div>
@@ -79,11 +79,11 @@
 
 <style>
 	.card {
-		@apply flex flex-col items-center rounded-xl bg-white;
+		@apply flex flex-col items-center rounded-xl bg-white w-full;
 	}
 
 	.card-image img {
-		@apply object-cover w-full h-full rounded-xl;
+		@apply object-cover w-full h-[14.25rem] rounded-xl;
 	}
 
 	.card-image {
@@ -91,7 +91,7 @@
 	}
 
 	.card-body {
-		@apply relative text-center;
+		@apply relative text-center w-full h-full px-3;
 	}
 
 	.card-heading {
@@ -104,7 +104,7 @@
 
 	.card-content::before {
 		content: '';
-		@apply absolute bg-gradient-to-t from-white top-0 left-0 float-left h-full w-full z-[20] rounded-xl;
+		@apply absolute bg-gradient-to-t from-white top-0 left-0 w-[calc(100%+1.5rem)] mx-[-0.75rem] h-full z-[20] rounded-xl;
 	}
 
 	.overlay-more {

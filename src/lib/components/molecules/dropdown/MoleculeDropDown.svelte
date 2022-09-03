@@ -57,6 +57,7 @@
 			loadingRiset.set(true);
 			getRisetKmData($pageKm, item === 'Lainnya' ? '' : item)
 				.then((res) => {
+					console.log(res.data.results);
 					itemRisetKm.set(res.data.results);
 				})
 				.finally(() => loadingRiset.set(false));

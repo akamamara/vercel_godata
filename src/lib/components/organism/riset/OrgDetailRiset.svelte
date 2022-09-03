@@ -14,6 +14,8 @@
 </script>
 
 <script>
+	import { dataset_dev } from 'svelte/internal';
+
 	export let dataGoData = {
 		_id: '',
 		year: 2022,
@@ -68,9 +70,9 @@
 		</div>
 		<div class="grow" />
 		<div class="btn-action">
-			{#if $stateKm}
+			{#if $stateKm && dataKm.report}
 				<AtomButton
-					on:click={() => onClickRefer(dataGoData.report)}
+					on:click={() => onClickRefer(dataKm.report)}
 					variant="barebone"
 					state="primary"
 					_class={btnClasses + ' col-span-2'}
@@ -78,22 +80,26 @@
 					Buka file
 				</AtomButton>
 			{:else}
-				<AtomButton
-					on:click={() => onClickRefer(dataGoData.dashboard)}
-					variant="barebone"
-					state="primary"
-					_class={btnClasses}
-				>
-					Dashboard
-				</AtomButton>
-				<AtomButton
-					on:click={() => onClickRefer(dataGoData.report)}
-					variant="barebone"
-					state="primary"
-					_class={btnClasses}
-				>
-					Laporan
-				</AtomButton>
+				{#if dataGoData.dashboard}
+					<AtomButton
+						on:click={() => onClickRefer(dataGoData.dashboard)}
+						variant="barebone"
+						state="primary"
+						_class={btnClasses}
+					>
+						Dashboard
+					</AtomButton>
+				{/if}
+				{#if dataGoData.report}
+					<AtomButton
+						on:click={() => onClickRefer(dataGoData.report)}
+						variant="barebone"
+						state="primary"
+						_class={btnClasses}
+					>
+						Laporan
+					</AtomButton>
+				{/if}
 			{/if}
 		</div>
 	</div>
@@ -101,7 +107,7 @@
 
 <style>
 	section {
-		@apply bg-white-var pt-[9rem] pb-14 flex flex-col justify-start grow;
+		@apply bg-white-var pt-[9rem] pb-14 flex flex-col justify-start grow w-full;
 	}
 
 	.image-godata {

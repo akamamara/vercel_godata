@@ -12,6 +12,7 @@
 	async function updateItemKm() {
 		getRisetKmData($pageKm, $ministryKm).then((res) => {
 			itemRisetKm.set(res.data.results);
+			console.log(res.data);
 		});
 	}
 

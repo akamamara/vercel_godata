@@ -8,7 +8,13 @@
 
 	const imgClass =
 		'mx-auto h-[13rem] sm:h-[16rem] md:h-[20rem] mb-4 object-scale-down object-center select-none';
+
+	console.log($page);
 </script>
+
+<svelte:head>
+	<title>Ouch! Something Wrong | GODATA</title>
+</svelte:head>
 
 <section>
 	<div class="overlay-image" />

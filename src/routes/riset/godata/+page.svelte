@@ -26,8 +26,8 @@
 </script>
 
 <svelte:head>
-	<title>Riset | GO DATA</title>
-	<meta name="description" content="Data Riset GO Data Risbang BEM KM IPB" />
+	<title>Riset | GODATA</title>
+	<meta name="description" content="Data Riset godata Risbang BEM KM IPB" />
 </svelte:head>
 
 <OrgHeroBannerRiset />

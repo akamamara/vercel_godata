@@ -128,7 +128,7 @@
 			<MoleculeCardDatabase
 				ilustration={MahaiswaIcon}
 				dbName="Ketua UKM"
-				actionList={listActionDb['ormawa']}
+				actionList={listActionDb['ukm']}
 			/>
 
 			<MoleculeCardDatabase

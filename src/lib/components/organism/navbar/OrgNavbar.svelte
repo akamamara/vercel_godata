@@ -93,8 +93,7 @@
 
 	<div class="navbar nav-container">
 		<div class="logo" on:click={() => goto('/')}>
-			<!-- <MoleculeGoDataLogo height={8} /> -->
-			<LogoGoDataIjo size={mdView ? '48' : '32'} />
+			<LogoGoDataIjo size={mdView ? '40' : '32'} />
 		</div>
 		{#if !mdView}
 			<div class="grow" />
@@ -131,6 +130,6 @@
 	}
 
 	.logo {
-		@apply flex flex-row items-center justify-center text-[2rem] text-primary font-bold pl-0 sm:pl-3 cursor-pointer;
+		@apply flex flex-row items-center justify-center text-[2rem] text-primary font-bold pl-0 cursor-pointer;
 	}
 </style>

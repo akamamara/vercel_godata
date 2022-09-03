@@ -30,6 +30,8 @@
 			Carousel = module.default;
 		});
 	});
+
+	$: console.log(item);
 </script>
 
 <svelte:window />
@@ -47,13 +49,19 @@
 		>
 		<div class="carousel-item">
 			{#if maxCarousel > 1}
-				<svelte:component this={Carousel} bind:this={carousel} arrows={false} particlesToShow={2}>
+				<svelte:component
+					this={Carousel}
+					bind:this={carousel}
+					arrows={false}
+					dots={false}
+					particlesToShow={2}
+				>
 					{#each item as itemCard}
 						<MoleculeCardHome {itemCard}>
 							<AtomTextHeading
 								element="h3"
 								type="title-subheading"
-								_class="text-white font-medium"
+								_class="text-white font-bold"
 								slot="heading"
 							>
 								{itemCard.title}
@@ -65,7 +73,13 @@
 					{/each}
 				</svelte:component>
 			{:else}
-				<svelte:component this={Carousel} bind:this={carousel} arrows={false} particlesToShow={1}>
+				<svelte:component
+					this={Carousel}
+					bind:this={carousel}
+					arrows={false}
+					dots={false}
+					particlesToShow={1}
+				>
 					{#each item as itemCard}
 						<MoleculeCardHome {itemCard}>
 							<AtomTextHeading
@@ -132,11 +146,11 @@
 	}
 
 	.carousel {
-		@apply z-10 border border-white p-6 rounded-xl;
+		@apply z-10 border border-white px-4 pt-4 pb-10 md:px-6 md:pt-6 rounded-xl;
 	}
 
 	.carousel-item {
-		@apply z-10 grid grid-cols-1 gap-6;
+		@apply z-10;
 	}
 
 	.carousel-action {

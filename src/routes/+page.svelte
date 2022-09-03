@@ -18,8 +18,8 @@
 </script>
 
 <svelte:head>
-	<title>Beranda | GO DATA</title>
-	<meta name="description" content="Beranda GO Data Risbang BEM KM IPB" />
+	<title>Beranda | GODATA</title>
+	<meta name="description" content="Beranda godata Risbang BEM KM IPB" />
 </svelte:head>
 
 <section name="hero-banner" class="main-container pt-[4.75rem] pb-4">

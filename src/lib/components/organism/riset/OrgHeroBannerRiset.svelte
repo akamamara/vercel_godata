@@ -48,7 +48,7 @@
 			<AtomTextHeading type="title" _class="mb-2">Riset</AtomTextHeading>
 			<AtomTextBody>
 				Riset dan pengumpulan data dilakukan untuk mengetahui informasi, kondisi, serta permasalahan
-				yang ada di kampus IPB, Publikasi hasil riset GODATA maupun KM IPB dapat digunakan
+				yang ada di kampus IPB. Publikasi hasil riset GODATA maupun KM IPB dapat digunakan
 				seluas-luasnya oleh KM IPB hingga masyarakat.
 			</AtomTextBody>
 			<div class="home-action">

@@ -59,7 +59,14 @@ export async function getRisetGoData(page = 1, year = currentYear, component = t
     const res = await fetchApi(
         `/research-go-data?limit=${limit}&page=${page}&year=${year}`,
         component
-    );
+    ).then((res) => {
+        if (res.data.results.length < get(limitGoData)) {
+            loadMoreVisibility.set(false);
+        } else {
+            loadMoreVisibility.set(true);
+        }
+        return res;
+    });
     return res;
 }
 

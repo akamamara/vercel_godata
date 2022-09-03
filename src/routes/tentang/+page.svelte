@@ -36,11 +36,14 @@
 			})
 			.finally(() => loading.set(false));
 	});
+
+	$: console.log('aboutDescData:', $aboutDescData);
+	$: console.log('aboutPersonData:', $aboutPersonData);
 </script>
 
 <svelte:head>
-	<title>Apa itu GODATA? | GO DATA</title>
-	<meta name="description" content="Anggota GO Data Risbang BEM KM IPB" />
+	<title>Apa itu GODATA? | GODATA</title>
+	<meta name="description" content="Anggota GODATA Risbang BEM KM IPB" />
 </svelte:head>
 
 {#if !$loading}

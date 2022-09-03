@@ -61,14 +61,16 @@
 					ukm: ukm,
 					ruangan: room
 				});
+
+				console.log(get(itemDataDatabase));
 			})
 			.finally(() => loading.set(false));
 	});
 </script>
 
 <svelte:head>
-	<title>Database | GO DATA</title>
-	<meta name="description" content="Database GO Data Risbang BEM KM IPB" />
+	<title>Database | GODATA</title>
+	<meta name="description" content="Database godata Risbang BEM KM IPB" />
 </svelte:head>
 
 <section name="hero-banner" class="main-container">

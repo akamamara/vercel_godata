@@ -14,6 +14,8 @@
 <script>
 	updateStateTypeRiset($page.routeId?.toString().split('/').pop());
 
+	$: console.log('LoadingRiset: ', $loadingRiset);
+
 	onMount(async () => {
 		pageKm.set(1);
 		getRisetKmData($pageKm, $ministryKm).then((res) => {
@@ -24,8 +26,8 @@
 </script>
 
 <svelte:head>
-	<title>Riset | GO DATA</title>
-	<meta name="description" content="Data Riset GO Data Risbang BEM KM IPB" />
+	<title>Riset | GODATA</title>
+	<meta name="description" content="Data Riset GODATA Risbang BEM KM IPB" />
 </svelte:head>
 
 <OrgHeroBannerRiset />

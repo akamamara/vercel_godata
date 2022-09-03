@@ -12,7 +12,7 @@
 	@tailwind components;
 	@layer components {
 		.body-text {
-			@apply opacity-[.85] leading-relaxed;
+			@apply opacity-[.85] leading-relaxed whitespace-normal;
 		}
 
 		.extra-big {

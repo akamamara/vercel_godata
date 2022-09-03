@@ -28,6 +28,8 @@
 </script>
 
 <script>
+	$: console.log('Godata:', get(stateGoData), 'Km:', get(stateKm));
+
 	const minYear = 2010;
 	const listDropDownRisetKM = [
 		'Jakda',
@@ -92,10 +94,15 @@
 								imgSrc={item.image}
 								responden={item.responden}
 							>
-								<AtomTextHeading element="h3" type="title-subheading" slot="heading">
+								<AtomTextHeading
+									element="h3"
+									type="title-subheading"
+									slot="heading"
+									_class="text-black"
+								>
 									{item.title}
 								</AtomTextHeading>
-								<AtomTextBody slot="body" size="small" _class="opacity-[65%] text-black">
+								<AtomTextBody slot="body" size="small" _class="opacity-[65%] text-black w-full">
 									{item.description.substring(0, 165) + '...'}
 								</AtomTextBody>
 							</MoleculeCardRiset>

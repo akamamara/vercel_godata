@@ -22,10 +22,15 @@
 
 	onMount(async () => {
 		getRisetGodataById($page.params.id).then((res) => {
+			console.log('dataRiset', res.data);
 			dataRiset = res.data;
 		});
 	});
 </script>
+
+<svelte:head>
+	<title>{dataRiset.title} | GODATA</title>
+</svelte:head>
 
 {#if dataRiset._id !== ''}
 	<OrgDetailRiset dataGoData={dataRiset} />
