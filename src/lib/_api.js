@@ -1,4 +1,4 @@
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
 import {get } from 'svelte/store';
 import { itemRisetGoData, loading } from './store';
 import {

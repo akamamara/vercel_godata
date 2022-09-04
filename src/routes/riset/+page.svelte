@@ -1,6 +1,6 @@
 <script context="module">
 	import { goto } from '$app/navigation';
-	import { browser } from '$app/env';
+	import { browser } from '$app/environment';
 	import { loading } from '$lib/store';
 </script>
 
